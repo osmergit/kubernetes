@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: osmer-pod
+  labels:
+    zone: prod
+    version: v1
+spec:
+  containers:
+  - name: hello-ctr
+    image: osmer15/app-01:1
+    ports:
+    - containerPort: 8000
+    resources:
+      limits:
+        memory: 256Mi
+        cpu: 0.5

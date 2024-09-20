@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: eduard-pod
+  labels:
+    zone: prod
+    version: v1
+spec:
+  containers:
+  - name: hello-ctr
+    image: osmer15/app-mongo:1
+    ports:
+    - containerPort: 3000
+    resources:
+      limits:
+        memory: 256Mi
+        cpu: 0.5
