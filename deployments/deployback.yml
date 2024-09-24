@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongo-deploy
+  name: backend-deploy
 spec:
-  replicas: 4
+  replicas: 5
   selector:
     matchLabels:
-      app: hello-world
+      app: hello-backend
   revisionHistoryLimit: 5
   progressDeadlineSeconds: 300
   minReadySeconds: 10
@@ -18,13 +18,14 @@ spec:
   template:
     metadata:
       labels:
-        app: hello-world
+        app: hello-backend
+        
     spec:
       containers:
-      - name: pod-1
-        image: osmer15/app-mongo:1
+      - name: back-pod
+        image: osmer15/backend:1
         ports:
-        - containerPort: 3000
+        - containerPort: 8000
         resources:
           limits:
             memory: 128Mi

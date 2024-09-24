@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: lb2-svc
+  name: svc-1
   labels:
     app: hello-world
 spec:

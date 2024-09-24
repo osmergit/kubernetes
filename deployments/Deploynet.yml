@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-init
+  labels:
+      app: deployment-init
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-pod
+  template: 
+    metadata:
+      labels: 
+        app: my-pod         
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: workdir
+          mountPath: /usr/share/nginx/html
+      initContainers:
+      - name: install
+        image: busybox:1.28
+        command: ["wget","-O","/work-dir/index.html","https://checkip.amazonaws.com"]
+        volumeMounts:
+        - name: workdir
+          mountPath: "/work-dir"
+      volumes:
+      - name: workdir
+        emptyDir: {}
+kubectl create -f deployment-init.yaml
+Creamos nuestro NLB (Despues de lanzar el comando es posible que demore algunos minutos en aprovicionarse el balanceador de carga)
+nlb.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service-loadbalancer
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb # Aqui especificamos el tipop de balanceador
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-pod
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
