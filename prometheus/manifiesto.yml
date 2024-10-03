@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-prometheus
+  labels:
+    app: prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      containers:
+        - name: prometheus-container
+          image: osmer15/app-prometheus:1
+          ports:
+            - containerPort: 9090
+          env:
+            - name: PROMETHEUS_CONFIG
+              value: /etc/prometheus/prometheus.yml
+          volumeMounts:
+            - mountPath: /etc/prometheus
+              name: prometheus-config
+      volumes:
+        - name: prometheus-config
+          hostPath:
+            path: /path/to/your/config

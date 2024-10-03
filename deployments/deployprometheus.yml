@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-deploy
+  name: metricas-deploy
 spec:
   selector:
     matchLabels:
-      app: hello-backend
+      app: metricas-backend
   revisionHistoryLimit: 5
   progressDeadlineSeconds: 300
   minReadySeconds: 10
@@ -17,13 +17,13 @@ spec:
   template:
     metadata:
       labels:
-        app: hello-backend
+        app: metricas-backend
     spec:
       containers:
-      - name: back-pod
-        image: osmer15/backend:3
+      - name: metricas-backend
+        image: osmer15/app-prometheus:1
         ports:
-        - containerPort: 8000
+        - containerPort: 3002
         resources:
           limits:
             memory: 128Mi

@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: back-pod
-        image: osmer15/backend:3
+        image: osmer15/backend:1
         ports:
         - containerPort: 8000
         resources:

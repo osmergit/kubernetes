@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mcu-1
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+   - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: svc-shield
+          servicePort: 8080
+  
