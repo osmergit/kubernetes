@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-service
+  labels:
+    app: prometheus
+spec:
+  type: NodePort  # Puedes cambiar a NodePort si no estás en un entorno de nube
+  ports:
+    - port: 9090       # El puerto del servicio
+      targetPort: 9090 # El puerto del contenedor
+  selector:
+    app: prometheus    # Asegúrate de que esto coincida con las etiquetas de tu deployment de Prometheus

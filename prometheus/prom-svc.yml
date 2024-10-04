@@ -9,4 +9,7 @@ data:
       scrape_interval: 15s
       metrics_path: /metrics
       static_configs:
-      - targets: ['10.104.95.31:3002'] # Usando el nombre del servicio
+      - targets: ['svc-metricas:3002'] # Usando el nombre del servicio
+
+
+      
